@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LocalStorage测试</title>
+</head>
+<body>
+    <h1>LocalStorage测试</h1>
+    <button onclick="testLocalStorage()">测试LocalStorage</button>
+    <div id="result"></div>
+
+    <script>
+        function testLocalStorage() {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '';
+
+            try {
+                // 测试写入
+                const testUser = {
+                    id: Date.now().toString(),
+                    username: 'testuser',
+                    password: 'testpassword'
+                };
+                localStorage.setItem('testUser', JSON.stringify(testUser));
+                resultDiv.innerHTML += '<p>写入成功: ' + JSON.stringify(testUser) + '</p>';
+
+                // 测试读取
+                const storedUser = localStorage.getItem('testUser');
+                resultDiv.innerHTML += '<p>读取成功: ' + storedUser + '</p>';
+
+                // 测试users数组
+                const users = JSON.parse(localStorage.getItem('users') || '[]');
+                resultDiv.innerHTML += '<p>当前users: ' + JSON.stringify(users) + '</p>';
+
+                // 测试currentUser
+                const currentUser = localStorage.getItem('currentUser');
+                resultDiv.innerHTML += '<p>当前currentUser: ' + currentUser + '</p>';
+
+            } catch (error) {
+                resultDiv.innerHTML += '<p style="color: red;">错误: ' + error.message + '</p>';
+            }
+        }
+    </script>
+</body>
+</html>

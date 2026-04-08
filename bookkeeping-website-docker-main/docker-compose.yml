@@ -1,0 +1,52 @@
+services:
+  # 前端服务
+  web:
+    build: .
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - expense-tracker-data:/app/data
+      - ./ssl:/etc/nginx/ssl
+    depends_on:
+      - api
+    restart: always
+
+  # 后端API服务
+  api:
+    build: ./server
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - DB_HOST=mysql
+      - DB_USER=root
+      - DB_PASSWORD=expense_tracker_2024
+      - DB_NAME=expense_tracker
+      - JWT_SECRET=your_jwt_secret_key_here
+    depends_on:
+      - mysql
+    volumes:
+      - ./server:/app
+      - /app/node_modules
+    restart: always
+
+  # MySQL数据库服务
+  mysql:
+    image: mysql:8.0
+    environment:
+      - MYSQL_ROOT_PASSWORD=expense_tracker_2024
+      - MYSQL_DATABASE=expense_tracker
+      - MYSQL_CHARACTER_SET_SERVER=utf8mb4
+      - MYSQL_COLLATION_SERVER=utf8mb4_unicode_ci
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./server/database/init.sql:/docker-entrypoint-initdb.d/init.sql
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    restart: always
+
+volumes:
+  expense-tracker-data:
+    driver: local
+  mysql-data:
+    driver: local

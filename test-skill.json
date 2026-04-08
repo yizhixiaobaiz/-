@@ -1,0 +1,6 @@
+{
+  "name": "测试技能",
+  "description": "这是一个测试技能",
+  "keywords": ["测试", "test"],
+  "code": "return \"这是测试技能的执行结果\""
+}

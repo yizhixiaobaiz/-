@@ -1,0 +1,6 @@
+{
+  "name": "查询汇率",
+  "description": "查询货币兑换汇率信息",
+  "keywords": ["汇率", "兑换", "美元", "欧元", "日元"],
+  "code": "const currencies = ['美元', '欧元', '日元', '英镑', '港币']; const currency = message.match(/(美元|欧元|日元|英镑|港币)/); const target = currency ? currency[0] : '美元'; return `当前${target}对人民币汇率：1 ${target} = 7.2 人民币`;"
+}

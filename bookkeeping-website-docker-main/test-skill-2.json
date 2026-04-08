@@ -1,0 +1,6 @@
+{
+  "name": "发送邮件",
+  "description": "发送邮件提醒功能",
+  "keywords": ["邮件", "发送", "提醒", "通知"],
+  "code": "const emailMatch = message.match(/发给|发送给|给(.*?)(邮箱|邮件)/); const content = message.replace(/邮件|发送|提醒|通知/g, '').trim(); return `邮件已准备发送！内容：${content || '您的提醒'}`;"
+}
